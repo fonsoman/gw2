@@ -3,11 +3,89 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>GW2</title>
+
+<!--/*<script type="text/javascript">
+	var access_token = "4D6153C1-F85E-E845-BA9B-75D89763E4458D02C2F9-F02B-4E7A-B69A-2FD35FEA4C81";
+	
+	function myTradingPost(id, current_history, buys_sells) {
+	 var myUrl = "https://api.guildwars2.com/v2/commerce/transactions/"+current_history+"/"+buys_sells+"?access_token=" + escape(access_token);
+	
+	 var jsonData = UrlFetchApp.fetch(myUrl);
+	
+	 var jsonString = jsonData.getContentText();
+	
+	  if (current_history == "history") {
+		var jsonObject = JSON.parse(jsonString)[id].item_id + "," + JSON.parse(jsonString)[id].price + "," + JSON.parse(jsonString)[id].quantity + "," + JSON.parse(jsonString)[id].purchased;
+	  }
+	  else {
+		var jsonObject = JSON.parse(jsonString)[id].item_id + "," + JSON.parse(jsonString)[id].price + "," + JSON.parse(jsonString)[id].quantity;
+	  }
+	
+	 return jsonObject;
+	
+	}
+	
+	document.write('<div>Everything is under this:</div>');
+	document.write(myTradingPost(0,"current","sells"));
+	
+</script>*/-->
+
+
+<script>
+	var access_token = "4D6153C1-F85E-E845-BA9B-75D89763E4458D02C2F9-F02B-4E7A-B69A-2FD35FEA4C81";
+
+	function myTradingPost(id, current_history, buys_sells) {
+		var xmlhttp = new XMLHttpRequest();
+		var url = "https://api.guildwars2.com/v2/commerce/transactions/"+current_history+"/"+buys_sells+"?access_token=" + escape(access_token);
+		
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				var myArr = JSON.parse(xmlhttp.responseText);
+				myFunction(myArr);
+			}
+		}
+		xmlhttp.open("GET", url, true);
+		xmlhttp.send();
+		
+		function myFunction(arr) {
+			var out = "";
+			var i;
+			for(i = 0; i < arr.length; i++) {
+				out += 	'<tr><td>' + 
+						arr[i].item_id + 
+						'</td><td>' +
+						arr[i].price +
+						'</td><td>' +
+						arr[i].quantity +
+						'</td><td>' +
+						arr[i].created +
+						'</td></tr>';
+			}
+			document.getElementById("tableContents").innerHTML = out;
+		}
+	}
+	
+	myTradingPost(0,"current","sells");
+	
+</script>
+
+
 </head>
 
 <body>
 
-Test
+<table>
+	<thead>
+    	<tr>
+        	<td>Item ID</td>
+            <td>Price</td>
+            <td>Quantity</td>
+            <td>Created</td>
+        </tr>
+    </thead>
+	<tbody id="tableContents">
+    </tbody>
+</table>
 
 </body>
 </html>
