@@ -4,31 +4,33 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>GW2</title>
 
-<!--/*<script type="text/javascript">
-	var access_token = "4D6153C1-F85E-E845-BA9B-75D89763E4458D02C2F9-F02B-4E7A-B69A-2FD35FEA4C81";
-	
-	function myTradingPost(id, current_history, buys_sells) {
-	 var myUrl = "https://api.guildwars2.com/v2/commerce/transactions/"+current_history+"/"+buys_sells+"?access_token=" + escape(access_token);
-	
-	 var jsonData = UrlFetchApp.fetch(myUrl);
-	
-	 var jsonString = jsonData.getContentText();
-	
-	  if (current_history == "history") {
-		var jsonObject = JSON.parse(jsonString)[id].item_id + "," + JSON.parse(jsonString)[id].price + "," + JSON.parse(jsonString)[id].quantity + "," + JSON.parse(jsonString)[id].purchased;
-	  }
-	  else {
-		var jsonObject = JSON.parse(jsonString)[id].item_id + "," + JSON.parse(jsonString)[id].price + "," + JSON.parse(jsonString)[id].quantity;
-	  }
-	
-	 return jsonObject;
-	
-	}
-	
-	document.write('<div>Everything is under this:</div>');
-	document.write(myTradingPost(0,"current","sells"));
-	
-</script>*/-->
+<!-- ================================================
+jQuery Library
+================================================ -->
+<script type="text/javascript" src="js/jquery.min.js"></script>
+
+<!-- ================================================
+Bootstrap Core JavaScript File
+================================================ -->
+<script src="js/bootstrap/bootstrap.min.js"></script>
+
+<!-- ================================================
+Plugin.js - Some Specific JS codes for Plugin Settings
+================================================ -->
+<script type="text/javascript" src="js/plugins.js"></script>
+
+<!-- ========== Css Files ========== -->
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+<link href="css/root.css" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+
+
+
 
 
 <script>
@@ -54,7 +56,7 @@
 				out += 	'<tr><td>' + 
 						arr[i].item_id + 
 						'</td><td>' +
-						arr[i].price +
+						(arr[i].price / 100) +
 						'</td><td>' +
 						arr[i].quantity +
 						'</td><td>' +
@@ -74,18 +76,88 @@
 
 <body>
 
-<table>
-	<thead>
-    	<tr>
-        	<td>Item ID</td>
-            <td>Price</td>
-            <td>Quantity</td>
-            <td>Created</td>
-        </tr>
-    </thead>
-	<tbody id="tableContents">
-    </tbody>
-</table>
+
+<!-- Start Page Loading -->
+  <div class="loading"><img src="/siteadmin/img/loading.gif" alt="loading-img"></div>
+  <!-- End Page Loading -->
+ <!-- //////////////////////////////////////////////////////////////////////////// --> 
+  <!-- START TOP -->
+  <div id="top" class="clearfix">
+
+    <!-- Start App Logo -->
+    <div class="applogo">
+      <a href="/siteadmin/main.php" class="logo">GW2</a>
+    </div>
+    <!-- End App Logo -->
+
+    <!-- Start Sidebar Show Hide Button -->
+    <a href="#" class="sidebar-open-button"><i class="fa fa-bars"></i></a>
+    <a href="#" class="sidebar-open-button-mobile"><i class="fa fa-bars"></i></a>
+    <!-- End Sidebar Show Hide Button -->
+
+
+    <!-- Start Top Right -->
+    <ul class="top-right" style="list-style-type: none;">
+		<li><a href="/siteadmin/logout.php"><i class="fa falist fa-power-off"></i> Logout</a></li>
+    </ul>
+    <!-- End Top Right -->
+
+  </div>
+  <!-- END TOP -->
+ <!-- //////////////////////////////////////////////////////////////////////////// --> 
+
+
+<!-- //////////////////////////////////////////////////////////////////////////// --> 
+<!-- START SIDEBAR -->
+<div class="sidebar clearfix">
+
+<ul class="sidebar-panel nav">
+  <li><a href="#"><span class="icon color5"><i class="fa fa-home"></i></span>Currently Selling</a></li>
+  <li><a href="#"><span class="icon color6"><i class="fa fa-group"></i></span>Shopping List</a></li>
+  <li><a href="#"><span class="icon color8"><i class="fa fa-envelope-o"></i></span>Crafting List</a></li>
+</ul>
+
+
+
+
+
+</div>
+<!-- END SIDEBAR -->
+<!-- //////////////////////////////////////////////////////////////////////////// --> 
+
+<!-- //////////////////////////////////////////////////////////////////////////// --> 
+<!-- START CONTENT -->
+<div class="content marginLeft">
+
+  <!-- Start Page Header -->
+  <div class="page-header">
+    <h1 class="title">Currently Selling</h1>
+  </div>
+  <!-- End Page Header -->
+
+<!-- //////////////////////////////////////////////////////////////////////////// --> 
+<!-- START CONTAINER -->
+<div class="container-padding">
+  <!-- Start Row -->
+  <div class="row">
+      <table class="table table-striped">
+          <thead>
+              <tr>
+                  <td>Item ID</td>
+                  <td>Price</td>
+                  <td>Quantity</td>
+                  <td>Created</td>
+              </tr>
+          </thead>
+          <tbody id="tableContents">
+          </tbody>
+      </table>
+   </div>
+  <!-- End Row -->
+</div>
+<!-- END CONTAINER -->
+<!-- //////////////////////////////////////////////////////////////////////////// --> 
+</div><!-- .content -->
 
 </body>
 </html>
