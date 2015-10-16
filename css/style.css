@@ -361,15 +361,15 @@ Sidebar Open Button - Show or Hide Sidebar
   color: #FFFFFF;
   padding-top: 19px;
   border-right: 1px solid rgba(0, 0, 0, 0.14);
-  background-color: #E73830;
+  background-color: #A489D4;
 }
 .sidebar-open-button-mobile:focus {
-  background-color: #E73830;
+  background-color: #A489D4;
   color: #FFFFFF;
 }
 .sidebar-open-button-mobile:hover,
 .sidebar-open-button-mobile:active {
-  background-color: #D0322B;
+  background-color: #C8B8E5;
   color: #FFFFFF;
 }
 /* =================================================================================
