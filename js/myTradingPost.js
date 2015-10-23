@@ -17,7 +17,7 @@ function nameFromId(arr) {
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 			var myArr = JSON.parse(xmlhttp.responseText);
 			for(var i = 0; i < myArr.length; i++) {
-				$("#"+myArr[i].id+" #name").html(myArr[i].name);
+				$("."+myArr[i].id+" .name").html(myArr[i].name);
 			}
 		}
 	}
@@ -45,10 +45,10 @@ function currentPrice(arr, buys_sells) {
 			for(var i = 0; i < myArr.length; i++) {
 				var buyPrice = myArr[i].buys['unit_price'] / 100;
 				var sellPrice = myArr[i].sells['unit_price'] / 100;
-				var quantity = $("#"+myArr[i].id+" #quantity").text();
-				$("#"+myArr[i].id+" #currentBuyPrice").html(buyPrice);
-				$("#"+myArr[i].id+" #currentSellPrice").html(sellPrice);
-				$("#"+myArr[i].id+" #difference").html(Math.round(((sellPrice-buyPrice)*quantity*100))/100);
+				var quantity = $("."+myArr[i].id+" .quantity").text();
+				$("."+myArr[i].id+" .currentBuyPrice").html(buyPrice);
+				$("."+myArr[i].id+" .currentSellPrice").html(sellPrice);
+				$("."+myArr[i].id+" .difference").html(Math.round(((sellPrice-buyPrice)*quantity*100))/100);
 			}
 		}
 	}
@@ -60,14 +60,14 @@ function createEmptyRows(arr) {
 	
 	var out = "";
 	for(var i = 0; i < arr.length; i++) {
-		out += 	'<tr id="'+arr[i].item_id+'">' +
-					'<td id="quantity"></td>'+
-					'<td id="name"></td>' +
-					'<td id="price"></td>' +
-					'<td id="created"></td>' +
-					'<td id="currentBuyPrice"></td>' +
-					'<td id="currentSellPrice"></td>' +
-					'<td id="difference"></td>' +
+		out += 	'<tr class="'+arr[i].item_id+'" id="'+arr[i].id+'">' +
+					'<td class="quantity"></td>'+
+					'<td class="name"></td>' +
+					'<td class="price"></td>' +
+					'<td class="created"></td>' +
+					'<td class="currentBuyPrice"></td>' +
+					'<td class="currentSellPrice"></td>' +
+					'<td class="difference"></td>' +
 				'</tr>';
 	}
 	$("#tableContents").html(out);
@@ -75,9 +75,9 @@ function createEmptyRows(arr) {
 
 function fillDataFromMainArray(arr) {
 	for(var i = 0; i < arr.length; i++) {
-		$("#"+arr[i].item_id+" #quantity").html(arr[i].quantity);
-		$("#"+arr[i].item_id+" #price").html(arr[i].price / 100);
-		$("#"+arr[i].item_id+" #created").html(arr[i].created);
+		$("#"+arr[i].id+" .quantity").html(arr[i].quantity);
+		$("#"+arr[i].id+" .price").html(arr[i].price / 100);
+		$("#"+arr[i].id+" .created").html(arr[i].created);
 	}
 }
 
