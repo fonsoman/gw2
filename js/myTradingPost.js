@@ -17,7 +17,7 @@ function nameFromId(arr) {
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 			var myArr = JSON.parse(xmlhttp.responseText);
 			for(var i = 0; i < myArr.length; i++) {
-				$("#"+arr[i].item_id+" #name").html(myArr[i].name);
+				$("#"+myArr[i].id+" #name").html(myArr[i].name);
 			}
 		}
 	}
@@ -26,7 +26,7 @@ function nameFromId(arr) {
 	
 }
 
-function currentPrice(arr) {
+function currentPrice(arr, buys_sells) {
 	var id_string = "";
 	for(var i = 0; i < arr.length; i++) {
 		if (i == arr.length-1) {
@@ -43,7 +43,12 @@ function currentPrice(arr) {
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 			var myArr = JSON.parse(xmlhttp.responseText);
 			for(var i = 0; i < myArr.length; i++) {
-				$("#"+arr[i].item_id+" #currentSellPrice").html(myArr[i].sells['unit_price'] / 100);
+				var buyPrice = myArr[i].buys['unit_price'] / 100;
+				var sellPrice = myArr[i].sells['unit_price'] / 100;
+				var quantity = $("#"+myArr[i].id+" #quantity").text();
+				$("#"+myArr[i].id+" #currentBuyPrice").html(buyPrice);
+				$("#"+myArr[i].id+" #currentSellPrice").html(sellPrice);
+				$("#"+myArr[i].id+" #difference").html(Math.round(((sellPrice-buyPrice)*quantity*100))/100);
 			}
 		}
 	}
@@ -60,7 +65,9 @@ function createEmptyRows(arr) {
 					'<td id="name"></td>' +
 					'<td id="price"></td>' +
 					'<td id="created"></td>' +
+					'<td id="currentBuyPrice"></td>' +
 					'<td id="currentSellPrice"></td>' +
+					'<td id="difference"></td>' +
 				'</tr>';
 	}
 	$("#tableContents").html(out);
@@ -74,6 +81,7 @@ function fillDataFromMainArray(arr) {
 	}
 }
 
+
 function myTradingPost(id, current_history, buys_sells) {
 	var xmlhttp = new XMLHttpRequest();
 	var url = "https://api.guildwars2.com/v2/commerce/transactions/"+current_history+"/"+buys_sells+"?access_token=" + escape(access_token);
@@ -85,7 +93,7 @@ function myTradingPost(id, current_history, buys_sells) {
 				createEmptyRows(myArr);
 				fillDataFromMainArray(myArr);
 				nameFromId(myArr);
-				currentPrice(myArr)
+				currentPrice(myArr, buys_sells);
 			}
 			else {
 				$("#tableContents").html("No Results");
